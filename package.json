@@ -1,23 +1,25 @@
 {
+  "name": "mail_back_end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gmail.js",
+  "type": "module",
+  "scripts": {
+    "start": "node gmail.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
+    "exceljs": "^4.4.0",
     "express": "^5.1.0",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.6"
-  },
-  "name": "mail_back_end",
-  "version": "1.0.0",
-  "description": "",
-  "main": "gmail.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node gmail.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+    "nodemailer": "^7.0.6",
+    "read-excel-file": "^5.8.8"
+  }
 }
