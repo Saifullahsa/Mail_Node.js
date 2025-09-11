@@ -12,14 +12,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
     "@neondatabase/serverless": "^1.0.1",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "exceljs": "^4.4.0",
     "express": "^5.1.0",
+    "googleapis": "^105.0.0",
+    "imap-simple": "^5.1.0",
+    "mailparser": "^3.7.4",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.6",
+    "pg": "^8.16.3",
     "read-excel-file": "^5.8.8"
   }
 }
