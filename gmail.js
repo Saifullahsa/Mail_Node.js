@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 const client = neon(process.env.db_url);
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://mail-sender-alpha.vercel.app" }));
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
