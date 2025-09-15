@@ -236,8 +236,7 @@ app.get("/read-mails", async (req, res) => {
     }
 
     messages.sort((a, b) => new Date(b.received_at) - new Date(a.received_at));
-    // res.json({ message: "success", inserted: messages.length, emails: messages });
-    res.redirect("/getmails")
+    res.redirect("/getmails");
   } catch (err) {
     console.error(err);
     res.status(500).send("Error reading mails");
@@ -281,6 +280,50 @@ app.get("/logout", async (req, res) => {
   }
 });
 
+// ... keep your other imports and routes above
+
+// ---- Delta mails route ----
+app.get("/delta-mails", async (req, res) => {
+  try {
+    const lastId = req.query.lastId || null;
+
+    // Total unread mails count
+    const [{ total }] =
+      await client`SELECT COUNT(*)::int AS total FROM unread_emails`;
+
+    let rows;
+    if (lastId) {
+      // next 10 newer than lastId
+      rows = await client`
+        SELECT * FROM unread_emails
+        WHERE id > ${lastId}
+        ORDER BY received_at ASC
+        LIMIT 10
+      `;
+    } else {
+      // first call: oldest 10 unread
+      rows = await client`
+        SELECT * FROM unread_emails
+        ORDER BY received_at ASC
+        LIMIT 10
+      `;
+    }
+
+    res.json({
+      message: "success",
+      totalCount: total, // 👈 total unread count
+      data: rows,
+      lastDeltaId: rows.length
+        ? rows[rows.length - 1].id
+        : lastId || null,
+    });
+  } catch (err) {
+    console.error("delta fetch error:", err);
+    res.status(500).json({ error: "Failed to fetch delta mails" });
+  }
+});
+
+// ---- start server ----
 app.listen(process.env.PORT, () => {
   console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
